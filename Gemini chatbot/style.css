@@ -19,6 +19,16 @@
   --scrollbar-color: #626a7f;
 }
 
+body.light-theme {
+  --text-color: #090c13;
+  --subheading-color: #7b8cae;
+  --placeholder-color: #606982;
+  --primary-color: #f3f7ff;
+  --secondary-color: #dce6f9;
+  --secondary-hover-color: #d2ddf2;
+  --scrollbar-color: #a2aac2;
+}
+
 body {
   color: var(--text-color);
   background: var(--primary-color);
@@ -76,7 +86,7 @@ body {
   scrollbar-width: none;
 }
 
-.container :is(.app-header, .suggestions) {
+body.chats-active .container :where(.app-header, .suggestions) {
   display: none;
 }
 
@@ -185,6 +195,27 @@ body {
   background: var(--secondary-color);
 }
 
+.chats-container .user-message .img-attachment {
+  width: 50%;
+  margin-top: -7px;
+  border-radius: 13px 3px 13px 13px;
+}
+
+.chats-container .user-message .file-attachment {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  width: 50%;
+  padding: 10px;
+  margin-top: -7px;
+  border-radius: 13px 3px 13px 13px;
+  background: var(--secondary-color);
+}
+
+.chats-container .user-message .file-attachment span {
+  color: #1d7efd;
+}
+
 /* Prompt container */
 
 .prompt-container {
@@ -290,7 +321,7 @@ body {
   display: none;
 }
 
-.prompt-form #cancel-file-btn {
+.prompt-form :is(#cancel-file-btn, #stop-response-btn:hover) {
   color: #d62939;
 }
 
@@ -298,9 +329,37 @@ body {
   color: #1d7efd;
 }
 
+.prompt-form #stop-response-btn,
+body.bot-responding .prompt-form .file-upload-wrapper {
+  display: none;
+}
+
+body.bot-responding .prompt-form #stop-response-btn {
+  display: block;
+}
+
 .prompt-container .disclaimer-text {
   text-align: center;
   font-size: 0.9rem;
   padding: 16px 20px 9;
   color: var(--placeholder-color);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 0 100px;
+  }
+
+  .app-header :is(.heading, .sub-heading) {
+    font-size: 2rem;
+    line-height: 1.4;
+  }
+
+  .prompt-form .file-upload-wrapper.active #cancel-file-btn {
+    opacity: 0;
+  }
+
+  .prompt-wrapper.hide-controls :where(#theme-toggle-btn, #delete-chats-btn) {
+    display: none;
+  }
 }
